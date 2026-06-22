@@ -8,12 +8,12 @@ def home():
 
 @app.route("/gerar", methods=["POST"])
 def gerar():
-    print("POST RECEBIDO")
     dados = request.json
+    print(dados)
 
     return jsonify({
-        "status": "ok",
-        "dados": dados
+        "dados": dados,
+        "status": "ok"
     })
 
 if __name__ == "__main__":
