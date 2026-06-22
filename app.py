@@ -18,6 +18,9 @@ def home():
 @app.route("/gerar", methods=["POST"])
 def gerar():
 
+    print("POST RECEBIDO")
+    return {"ok": True}
+
     dados = request.json
 
     selecao1 = dados["selecao1"]
