@@ -138,7 +138,7 @@ def gerar():
     )
 
     # SLOGAN
-    slogan = "AS CAMISAS DA COPA VOCÊ ENCONTRA NA ATS"
+    slogan = "AS CAMISAS DA COPA \n VOCÊ ENCONTRA NA ATS"
 
     bbox3 = draw.textbbox(
         (0, 0),
@@ -148,14 +148,16 @@ def gerar():
 
     largura_slogan = bbox3[2] - bbox3[0]
 
-    draw.text(
+    draw.multiline_text(
         (
             (largura - largura_slogan) / 2,
             altura - 200
         ),
         slogan,
         fill="white",
-        font=fonte_texto
+        font=fonte_texto,
+        align="center",
+        spacing=15
     )
 
     # SALVA ARQUIVO
