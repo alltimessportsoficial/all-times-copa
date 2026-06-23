@@ -51,14 +51,14 @@ def gerar():
             BytesIO(resposta2.content)
         ).convert("RGBA")
 
-        camisa1.thumbnail((500, 500))
-        camisa2.thumbnail((500, 500))
+        camisa1.thumbnail((650, 650))
+        camisa2.thumbnail((650, 650))
 
         largura, altura = fundo.size
 
         x1 = largura // 2 - 450
         x2 = largura // 2 + 150
-        y = altura // 2 - 100
+        y = altura // 2 - 180
 
         fundo.paste(camisa1, (x1, y), camisa1)
         fundo.paste(camisa2, (x2, y), camisa2)
