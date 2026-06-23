@@ -67,9 +67,9 @@ def gerar():
 
     largura, altura = fundo.size
 
-    x1 = largura // 2 - 560
-    x2 = largura // 2 + 30
-    y = altura // 2 - 70
+    x1 = largura // 2 - 620
+    x2 = largura // 2 - 20
+    y = altura // 2 - 180
 
     fundo.paste(camisa1, (x1, y), camisa1)
     fundo.paste(camisa2, (x2, y), camisa2)
