@@ -36,12 +36,24 @@ def gerar():
     fundo = Image.open("assets/fundo.png").convert("RGBA")
 
     # Camisas
+    r1 = requests.get(url1)
+
+    print("URL1:", url1)
+    print("STATUS1:", r1.status_code)
+    print("TIPO1:", r1.headers.get("Content-Type"))
+    
     camisa1 = Image.open(
-        BytesIO(requests.get(url1).content)
+        BytesIO(r1.content)
     ).convert("RGBA")
 
+    r2 = requests.get(url2)
+
+    print("URL2:", url2)
+    print("STATUS2:", r2.status_code)
+    print("TIPO2:", r2.headers.get("Content-Type"))
+    
     camisa2 = Image.open(
-        BytesIO(requests.get(url2).content)
+        BytesIO(r2.content)
     ).convert("RGBA")
 
     # Redimensiona
