@@ -67,9 +67,9 @@ def gerar():
 
     largura, altura = fundo.size
 
-    x1 = largura // 2 - 430
-    x2 = largura // 2 + 120
-    y = altura // 2 - 220
+    x1 = largura // 2 - 560
+    x2 = largura // 2 + 30
+    y = altura // 2 - 70
 
     fundo.paste(camisa1, (x1, y), camisa1)
     fundo.paste(camisa2, (x2, y), camisa2)
@@ -78,12 +78,12 @@ def gerar():
     try:
         fonte_titulo = ImageFont.truetype(
             "assets/BebasNeue-Regular.ttf",
-            90
+            140
         )
 
         fonte_texto = ImageFont.truetype(
             "assets/Montserrat-Bold.ttf",
-            38
+            65
         )
 
     except:
@@ -125,7 +125,7 @@ def gerar():
     draw.text(
         (
             (largura - largura_sub) / 2,
-            altura - 330
+            altura - 300
         ),
         subtitulo,
         fill="gold",
@@ -146,7 +146,7 @@ def gerar():
     draw.text(
         (
             (largura - largura_slogan) / 2,
-            altura - 250
+            altura - 200
         ),
         slogan,
         fill="white",
