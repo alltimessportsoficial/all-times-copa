@@ -1,4 +1,3 @@
-```python
 from flask import Flask, request, jsonify, send_from_directory
 from PIL import Image, ImageDraw, ImageFont
 import requests
