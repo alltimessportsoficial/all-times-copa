@@ -87,12 +87,12 @@ def gerar():
     )
 
     print("FONTES CARREGADAS")
-    
-    except Exception as e:
-        print("ERRO NAS FONTES:", e)
-    
-        fonte_titulo = ImageFont.load_default()
-        fonte_texto = ImageFont.load_default()
+
+except Exception as e:
+    print("ERRO NAS FONTES:", e)
+
+    fonte_titulo = ImageFont.load_default()
+    fonte_texto = ImageFont.load_default()
 
     # TÍTULO
     titulo = f"{selecao1.upper()} X {selecao2.upper()}"
