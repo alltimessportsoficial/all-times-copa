@@ -109,7 +109,7 @@ def gerar():
     draw.text(
         (
             (largura - largura_texto) / 2,
-            80
+            170
         ),
         titulo,
         fill="white",
@@ -150,7 +150,7 @@ def gerar():
 
     draw.text(
         (
-            (largura - largura_slogan) / 3,
+            (largura - largura_slogan) / 2,
             altura - 200
         ),
         slogan,
