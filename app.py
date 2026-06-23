@@ -1,3 +1,4 @@
+```python
 from flask import Flask, request, jsonify, send_from_directory
 from PIL import Image, ImageDraw, ImageFont
 import requests
@@ -15,15 +16,15 @@ def home():
     return "All Times Sports - Copa 2026 API Online!"
 
 
-@app.route("/imagem/<nome>")
-def imagem(nome):
-    return send_from_directory("output", nome)
+@app.route("/imagem/<arquivo>")
+def imagem(arquivo):
+    return send_from_directory("output", arquivo)
 
 
 @app.route("/gerar", methods=["POST"])
 def gerar():
 
-    dados = request.get_json(force=True)
+    dados = request.get_json()
 
     selecao1 = dados["selecao1"]
     selecao2 = dados["selecao2"]
@@ -32,60 +33,65 @@ def gerar():
     data = dados.get("data", "")
     hora = dados.get("hora", "")
 
-    # Fundo
     fundo = Image.open("assets/fundo.png").convert("RGBA")
+    draw = ImageDraw.Draw(fundo)
 
-    # Camisas
+    # BAIXA CAMISA 1
     r1 = requests.get(url1)
 
-    print("URL1:", url1)
-    print("STATUS1:", r1.status_code)
-    print("TIPO1:", r1.headers.get("Content-Type"))
-    
+    if "image" not in r1.headers.get("Content-Type", ""):
+        return jsonify({
+            "status": "erro",
+            "mensagem": f"URL1 não é uma imagem: {url1}"
+        }), 400
+
     camisa1 = Image.open(
         BytesIO(r1.content)
     ).convert("RGBA")
 
+    # BAIXA CAMISA 2
     r2 = requests.get(url2)
 
-    print("URL2:", url2)
-    print("STATUS2:", r2.status_code)
-    print("TIPO2:", r2.headers.get("Content-Type"))
-    
+    if "image" not in r2.headers.get("Content-Type", ""):
+        return jsonify({
+            "status": "erro",
+            "mensagem": f"URL2 não é uma imagem: {url2}"
+        }), 400
+
     camisa2 = Image.open(
         BytesIO(r2.content)
     ).convert("RGBA")
 
-    # Redimensiona
-    camisa1.thumbnail((550, 550))
-    camisa2.thumbnail((550, 550))
+    # TAMANHO DAS CAMISAS
+    camisa1.thumbnail((600, 600))
+    camisa2.thumbnail((600, 600))
 
     largura, altura = fundo.size
 
-    # Posições
-    x1 = largura // 2 - 500
-    x2 = largura // 2 + 100
-    y = altura // 2 - 80
+    x1 = largura // 2 - 430
+    x2 = largura // 2 + 120
+    y = altura // 2 - 220
 
-    # Cola as camisas
     fundo.paste(camisa1, (x1, y), camisa1)
     fundo.paste(camisa2, (x2, y), camisa2)
 
-    draw = ImageDraw.Draw(fundo)
-
-    # Fontes
+    # FONTES
     try:
         fonte_titulo = ImageFont.truetype(
-            "assets/BebasNeue-Regular.ttf", 110
+            "assets/BebasNeue-Regular.ttf",
+            90
         )
+
         fonte_texto = ImageFont.truetype(
-            "assets/Montserrat-Bold.ttf", 45
+            "assets/Montserrat-Bold.ttf",
+            38
         )
+
     except:
         fonte_titulo = ImageFont.load_default()
         fonte_texto = ImageFont.load_default()
 
-    # Título
+    # TÍTULO
     titulo = f"{selecao1.upper()} X {selecao2.upper()}"
 
     bbox = draw.textbbox(
@@ -99,14 +105,14 @@ def gerar():
     draw.text(
         (
             (largura - largura_texto) / 2,
-            120
+            80
         ),
         titulo,
         fill="white",
         font=fonte_titulo
     )
 
-    # Data e hora
+    # DATA E HORA
     subtitulo = f"{data} • {hora}"
 
     bbox2 = draw.textbbox(
@@ -120,35 +126,35 @@ def gerar():
     draw.text(
         (
             (largura - largura_sub) / 2,
-            altura - 260
+            altura - 330
         ),
         subtitulo,
         fill="gold",
         font=fonte_texto
     )
 
-    # Rodapé
-    frase = "AS CAMISAS DA COPA VOCÊ ENCONTRA NA ATS"
+    # SLOGAN
+    slogan = "AS CAMISAS DA COPA VOCÊ ENCONTRA NA ATS"
 
     bbox3 = draw.textbbox(
         (0, 0),
-        frase,
+        slogan,
         font=fonte_texto
     )
 
-    largura_frase = bbox3[2] - bbox3[0]
+    largura_slogan = bbox3[2] - bbox3[0]
 
     draw.text(
         (
-            (largura - largura_frase) / 2,
-            altura - 180
+            (largura - largura_slogan) / 2,
+            altura - 250
         ),
-        frase,
+        slogan,
         fill="white",
         font=fonte_texto
     )
 
-    # Salva imagem
+    # SALVA ARQUIVO
     nome = (
         f"{selecao1}_{selecao2}_"
         f"{datetime.now().strftime('%Y%m%d%H%M%S')}.png"
@@ -161,9 +167,16 @@ def gerar():
     return jsonify({
         "status": "ok",
         "arquivo": nome,
-        "url": f"{request.host_url}imagem/{nome}"
+        "url": (
+            "https://all-times-copa-production.up.railway.app/imagem/"
+            + nome
+        )
     })
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080)
+    app.run(
+        host="0.0.0.0",
+        port=8080
+    )
+```
