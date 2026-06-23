@@ -75,18 +75,22 @@ def gerar():
     fundo.paste(camisa2, (x2, y), camisa2)
 
     # FONTES
-    try:
+        try:
         fonte_titulo = ImageFont.truetype(
             "assets/BebasNeue-Regular.ttf",
-            140
+            110
         )
-
+    
         fonte_texto = ImageFont.truetype(
             "assets/Montserrat-Bold.ttf",
             90
         )
-
-    except:
+    
+        print("FONTES CARREGADAS")
+    
+    except Exception as e:
+        print("ERRO NAS FONTES:", e)
+    
         fonte_titulo = ImageFont.load_default()
         fonte_texto = ImageFont.load_default()
 
