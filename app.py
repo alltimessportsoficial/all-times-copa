@@ -109,7 +109,7 @@ def gerar():
     draw.text(
         (
             (largura - largura_texto) / 2,
-            170
+            210
         ),
         titulo,
         fill="white",
