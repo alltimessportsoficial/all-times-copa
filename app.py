@@ -83,7 +83,7 @@ def gerar():
 
         fonte_texto = ImageFont.truetype(
             "assets/Montserrat-Bold.ttf",
-            65
+            90
         )
 
     except:
