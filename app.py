@@ -75,6 +75,7 @@ def gerar():
     fundo.paste(camisa2, (x2, y), camisa2)
 
     # FONTES
+    print(os.listdir("assets"))
     try:
         fonte_titulo = ImageFont.truetype(
             "assets/BebasNeue-Regular.ttf",
