@@ -82,8 +82,8 @@ def gerar():
         )
     
         fonte_texto = ImageFont.truetype(
-            "assets/Montserrat-Bold.ttf",
-            90
+            "assets/Montserrat-VariableFont_wght.ttf",
+            140
         )
     
         print("FONTES CARREGADAS")
