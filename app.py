@@ -4,6 +4,9 @@ import requests
 from io import BytesIO
 import os
 from datetime import datetime
+import unicodedata
+import re
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -168,8 +171,20 @@ def gerar():
     )
 
     # SALVA ARQUIVO
+    nomee = f"{selecao1}_{selecao2}"
+
+    # remove acentos
+    nome = unicodedata.normalize('NFKD', nome)
+    nome = nome_base.encode('ASCII', 'ignore').decode('ASCII')
+    
+    # substitui espaços por _
+    nome = nome.replace(" ", "_")
+    
+    # remove caracteres especiais
+    nome = re.sub(r'[^a-zA-Z0-9_]', '', nome)
+    
     nome = (
-        f"{selecao1}_{selecao2}_"
+        f"{nome}_"
         f"{datetime.now().strftime('%Y%m%d%H%M%S')}.png"
     )
 
