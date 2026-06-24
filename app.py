@@ -25,10 +25,17 @@ def gerar():
 
     dados = request.get_json()
 
+    print("DADOS RECEBIDOS:")
+    print(dados)
+    
     selecao1 = dados["selecao1"]
     selecao2 = dados["selecao2"]
     url1 = dados["url1"]
     url2 = dados["url2"]
+
+    print("URL1:", repr(url1))
+    print("URL2:", repr(url2))
+    
     data = dados.get("data", "")
     hora = dados.get("hora", "")
 
