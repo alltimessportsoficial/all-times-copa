@@ -175,7 +175,7 @@ def gerar():
 
     # remove acentos
     nome = unicodedata.normalize('NFKD', nome)
-    nome = nome_base.encode('ASCII', 'ignore').decode('ASCII')
+    nome = nome.encode('ASCII', 'ignore').decode('ASCII')
     
     # substitui espaços por _
     nome = nome.replace(" ", "_")
