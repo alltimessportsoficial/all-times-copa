@@ -171,7 +171,7 @@ def gerar():
     )
 
     # SALVA ARQUIVO
-    nomee = f"{selecao1}_{selecao2}"
+    nome = f"{selecao1}_{selecao2}"
 
     # remove acentos
     nome = unicodedata.normalize('NFKD', nome)
